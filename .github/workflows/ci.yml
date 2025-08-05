@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     # permissions
     permissions:
       contents: read
@@ -52,12 +52,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # building and pushing the Docker image
-      - name: Build and push the Docker image
+      # connection to GHCR only if push is mandatory (before the build)
+      - name: Login to Github Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # building the image (without push) for the PRs, build and push for master
+      - name: Build Docker image (PR or push)
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-          tags: ghcr.io/${{ github.repository }}:latest
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # push only for master
+          tags: ${{ github.event_name == 'pull_request' && format('ghcr.io/{0}:pr-{1}-latest', github.repository, github.event.number) || format('ghcr.io/{0}:latest', github.repository) }}
           build-args: |
             PYTHON_VERSION=3.11
