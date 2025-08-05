@@ -4,7 +4,7 @@
 ###############################################################################
 #
 def main():
-    print("Hello from main :D")
+    print("Hello from Python and main :D")
     return "Hey!"
 
 
