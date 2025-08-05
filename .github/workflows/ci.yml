@@ -29,6 +29,8 @@ jobs:
 
       # executing tests
       - name: Run tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           pip install pytest
           pytest tests/
