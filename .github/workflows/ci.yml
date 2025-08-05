@@ -52,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
           tags: ghcr.io/${{ github.repository }}:latest
           build-args: |
             PYTHON_VERSION=3.11
