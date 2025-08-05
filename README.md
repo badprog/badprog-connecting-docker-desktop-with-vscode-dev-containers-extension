@@ -1,4 +1,4 @@
-# badprog-connecting-docker-desktop-with-vscode-dev-containers-extension 
+# badprog-connecting-docker-desktop-with-vscode-dev-containers-extension
 
 Docker Desktop and VSCode are interesing software, using them together offers many advantages.  
 One of the most useful part is the Dev Containers extension from VSCode.  
