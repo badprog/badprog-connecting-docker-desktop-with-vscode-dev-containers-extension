@@ -38,7 +38,8 @@ So you have something like this:
 project-python
 ├── .devcontainer
 │   └── devcontainer.json
-└── main.py
+└── src
+    └──main.py
 ```
 
 In the devcontainer.json file write the following code:
